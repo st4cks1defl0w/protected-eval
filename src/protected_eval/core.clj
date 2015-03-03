@@ -1,4 +1,4 @@
-(ns spachat.protected-eval)
+(ns protected-eval.core)
 
 (defonce
   ^{:doc "Keeping track of active REPL connections - will be useful for
@@ -7,7 +7,7 @@
   (atom #{}))
 
 (defmacro defnremote [name & rest]
-    `(defn ~(vary-meta name assoc :remote-eval true) ~@rest))
+  `(defn ~(vary-meta name assoc :remote-eval true) ~@rest))
 
 (defn- defnremote? [code]
   (->> code
@@ -26,7 +26,7 @@
   [h]
   (fn [{:keys [code op session] :as msg}]
     (when (some? session)
-        (reset! *active-repls (conj @*active-repls session)))
+      (reset! *active-repls (conj @*active-repls session)))
     (if (or (>= 2 (count @*active-repls))
             (and (= op "eval") (defnremote? code)))
       (h msg)
@@ -37,7 +37,8 @@
   #{"classpath" "clone" "describe" "eldoc" "close" "interrupt"})
 
 (defn eval-apply-remote-only-cider
-  "Same as eval-apply-remote-only, but works with Emacs CIDER REPL (eval in repl buffer)
+  "Same as eval-apply-remote-only, but works with
+  Emacs CIDER REPL (eval in repl buffer)
   Less secure. Following nREPL operations are allowed
   (necessary for minimal CIDER repl connection):
   - classpath:
@@ -63,8 +64,8 @@
 
 (defnremote eval-me-with-nrepl []
   (str "some useful info about the server, like current time: "
-           (quot (System/currentTimeMillis) 1000)))
+       (quot (System/currentTimeMillis) 1000)))
 
 (defn do-not-eval-me-with-nrepl []
   (str "some very sensitive info about the server, like OS version: "
-           (System/getProperty "os.version")))
+       (System/getProperty "os.version")))

@@ -1,7 +1,6 @@
 # protected-eval
 
-FIXME: description
-
+nREPL middleware to
 ## Installation
 
 Download from http://example.com/FIXME.
@@ -22,6 +21,7 @@ FIXME: listing of options this app accepts.
 
 ### Bugs
 
+
 ...
 
 ### Any Other Sections
@@ -30,7 +30,4 @@ FIXME: listing of options this app accepts.
 
 ## License
 
-Copyright © 2019 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+GNU GPL v3
