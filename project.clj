@@ -1,4 +1,4 @@
-(defproject protected-eval "0.1.0"
+(defproject protected-eval "0.1.1"
   :description "  "
   :url "https://stacksideflow.host"
   :license {:name "GNU GPL v 3.0"
