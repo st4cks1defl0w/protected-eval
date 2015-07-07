@@ -51,7 +51,7 @@
   - close
   closes nREPL connection
   - interrupt
-  interrupts nREPL connection "
+  interrupts nREPL connection"
   [h]
   (fn [{:keys [code op session] :as msg}]
     (when (some? session)
