@@ -5,6 +5,7 @@
             :url "https://www.gnu.org/licenses/gpl-3.0.en.html"}
   :scm {:name "git" :url "https://github.com/stacksideflow/protected-eval"}
   :dependencies [[org.clojure/clojure "1.10.0"]
+                 [nrepl "0.4.0"]
                  [lein-cljfmt "0.6.4"]
                  [jonase/eastwood "0.3.5"]
                  [lein-bikeshed "0.5.1"]]
