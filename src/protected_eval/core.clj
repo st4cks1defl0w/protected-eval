@@ -9,8 +9,8 @@
   *active-repls
   (atom #{}))
 
-(defmacro defnremote [name & rest]
-    `(defn ~(vary-meta name assoc :remote-eval true) ~@rest))
+(defmacro defnremote [fn-name & fn-rest]
+  `(defn ~(vary-meta fn-name assoc :remote-eval true) ~@fn-rest))
 
 (defn- defnremote? [code]
   (->> code

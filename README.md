@@ -1,21 +1,24 @@
 # protected-eval
 
+Application REPL Interface - select functions evaluable with nREPL, hide everything else.
+
+![protected-eval](https://github.com/stacksideflow/protected-eval/raw/master/sample.gif)
+
 ### usage
 
-Simply use `defnremote` instead of `defn` if you wish to expose your function to be evalable with nREPL. Default policy is to drop every message received through REPL, except for evaluation of `defnremote`'d functions.
+Simply use `defnremote` instead of `defn` if you wish to expose your function to the remote nREPL user. Default policy is to drop every message received through REPL, except for evaluation of `defnremote`'d functions.
 
 
 #### defnremote - accessible via remote nREPL
 ```clojure
-(defnremote eval-me-with-nrepl []
-  (str "some useful info about the server, like current time: "
-       (quot (System/currentTimeMillis) 1000)))
+(defnremote defnremoted-send-message [from to message]
+  (send-message-impl from to message)
+  (str "message sent, thanks for using our REPL API!"))
 ```
-#### defn (and all other code) - inaccessible via remote nREPL
+#### everything else - inaccessible via remote nREPL
 ```clojure
-(defn do-not-eval-me-with-nrepl []
-  (str "some very sensitive info about the server, like OS version: "
-       (System/getProperty "os.version")))
+(defn normal-hidden-by-default []
+  (str "any code that is not defnremote'd, try to find me (you can't)"))
 ```
 
 ### installation

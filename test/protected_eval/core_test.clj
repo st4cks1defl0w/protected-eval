@@ -4,17 +4,17 @@
 
 (defn send-message-impl [message from to])
 
-(defnremote defnremoted-visible-function-send-message [from to message]
+(defnremote defnremoted-send-message [from to message]
   (send-message-impl from to message)
-  (str "message sent, but you can't access any other part of code!"))
+  (str "message sent, thanks for using our REPL API!"))
 
-(defn normal-code-hidden-by-default []
+(defn normal-hidden-by-default []
   (str "any code that is not defnremote'd, try to find me (you can't)"))
 
 (deftest offline-basic
-  (is (= (defnremoted-visible-function-send-message "nREPLguest" "admin" "hi")
-         "message sent, but you can't access any other part of code!"))
-  (is (= (normal-code-hidden-by-default)
+  (is (= (defnremoted-send-message "nREPLguest" "admin" "hi")
+         "message sent, thanks for using our REPL API!"))
+  (is (= (normal-hidden-by-default)
          "any code that is not defnremote'd, try to find me (you can't)")))
 
 (run-tests 'protected-eval.core-test)
