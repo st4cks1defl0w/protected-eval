@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [protected-eval.core :refer :all]))
 
-(defn send-message-impl [message from to])
+(defn send-message-impl [from to message])
 
 (defnremote defnremoted-send-message [from to message]
   (send-message-impl from to message)
