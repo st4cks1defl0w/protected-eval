@@ -21,6 +21,33 @@
        meta
        :remote-eval))
 
+(defn- defnremote-dbg? [code]
+  (println "symbol->>>>>>>>"
+           (->> code
+                clojure.edn/read-string
+                first
+                symbol))
+  (println "resolve->>>>>>>>"
+           (->> code
+                clojure.edn/read-string
+                first
+                symbol
+                resolve))
+  (println "meta->>>>>>"
+           (->> code
+                clojure.edn/read-string
+                first
+                symbol
+                resolve
+                meta))
+  (->> code
+       clojure.edn/read-string
+       first
+       symbol
+       resolve
+       meta
+       :remote-eval))
+
 (def ^:private whitelisted-ops
   #{"close" "interrupt"})
 
@@ -33,6 +60,31 @@
   [h]
   (fn [{:keys [code op] :as msg}]
     (if (or (contains? whitelisted-ops op)
+            (and (defnremote? code) (= op "eval")))
+      (h msg)
+      (h (assoc msg :op "eval" :code "nil")))))
+
+(defn eval-apply-remote-only-cider-dbg
+  "Same as eval-apply-remote-only, but works with Emacs
+    CIDER REPL (eval in repl buffer)
+    Less secure. Following nREPL operations are allowed
+    (necessary for minimal CIDER repl connection):
+    - classpath:
+    return a sequence of File objects of elements on the classpath.
+    - clone
+    initiates (copies) a new session, nothing is disclosed
+    - describe
+    transmits a collection of available nREPL operations
+    (lists all of them, disregarding nrepl-protected limitations)
+    - close
+    closes nREPL connection
+    - interrupt
+    interrupts nREPL connection "
+  [h]
+  (fn [{:keys [code op] :as msg}]
+    (println "msg = " msg)
+    (defnremote-dbg? code)
+    (if (or (contains? whitelisted-ops-cider op)
             (and (defnremote? code) (= op "eval")))
       (h msg)
       (h (assoc msg :op "eval" :code "nil")))))
