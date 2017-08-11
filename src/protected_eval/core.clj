@@ -83,7 +83,7 @@
   [h]
   (fn [{:keys [code op] :as msg}]
     (println "msg = " msg)
-    (when op
+    (when (= op "eval")
       (defnremote-dbg? code))
     (if (or (contains? whitelisted-ops-cider op)
             (and (= op "eval") (defnremote? code)))
