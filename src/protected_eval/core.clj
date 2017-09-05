@@ -60,7 +60,7 @@
   [h]
   (fn [{:keys [code op] :as msg}]
     (if (or (contains? whitelisted-ops op)
-            (and (defnremote? code) (= op "eval")))
+            (and (= op "eval") (defnremote? code)))
       (h msg)
       (h (assoc msg :op "eval" :code "nil")))))
 
@@ -109,7 +109,7 @@
   [h]
   (fn [{:keys [code op] :as msg}]
     (if (or (contains? whitelisted-ops-cider op)
-            (and (defnremote? code) (= op "eval")))
+            (and (= op "eval") (defnremote? code)))
       (h msg)
       (h (assoc msg :op "eval" :code "nil")))))
 
@@ -123,7 +123,7 @@
       (reset! *active-repls (conj @*active-repls session)))
     (if (or (<= (count @*active-repls) 2)
             (contains? whitelisted-ops op)
-            (and (defnremote? code) (= op "eval")))
+            (and (= op "eval") (defnremote? code)))
       (h msg)
       (h (assoc msg :op "eval" :code "nil")))))
 
@@ -137,7 +137,7 @@
       (reset! *active-repls (conj @*active-repls session)))
     (if (or (<= (count @*active-repls) 2)
             (contains? whitelisted-ops-cider op)
-            (and (defnremote? code) (= op "eval")))
+            (and (= op "eval") (defnremote? code)))
       (h msg)
       (h (assoc msg :op "eval" :code "nil")))))
 
