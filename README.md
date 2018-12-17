@@ -33,11 +33,20 @@ Simply use `defnremote` instead of `defn` if you wish to expose your function to
     ```
     or
 
-     [Emacs+CIDER] Add this to your project.clj (allows to inspect classpath + some additional commands, less restrictive)
+     [Emacs+CIDER] Add this to your project.clj (allows to inspect classpath + some additional commands, less restrictive)*
    ```clojure
     :repl-options {:nrepl-middleware [protected-eval.core/eval-apply-remote-only-cider]}
     ```
-    Emacs+CIDER `eval-apply-remote-only-cider` middleware description:
+
+   Start with `lein repl :headless`.
+   After connecting to this nREPL instance, you will be able to access `defnremote`s only.
+
+   If you launch an nREPL server with `lein repl` (non-headless), you have to use `protected-eval.core/eval-apply-remote-only-non-headless` and `protected-eval.core/eval-apply-remote-only-non-headless-cider` versions of the middleware.
+
+    You have to require your namespace with remote functions somewhere
+    (if you're using an isolated ns) for your functions to be resolved.
+
+    *Emacs+CIDER `eval-apply-remote-only-cider` middleware description:
 
      "Same as eval-apply-remote-only, but works with
     Emacs CIDER REPL (eval in repl buffer)
