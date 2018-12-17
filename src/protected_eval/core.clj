@@ -12,14 +12,21 @@
 (defmacro defnremote [fn-name & fn-rest]
   `(defn ~(vary-meta fn-name assoc :remote-eval true) ~@fn-rest))
 
+(try
+  (/ 1 0)
+  (catch Exception e (str "caught exception: " (.getMessage e))))
+
 (defn- defnremote? [code]
-  (->> code
-       clojure.edn/read-string
-       first
-       symbol
-       resolve
-       meta
-       :remote-eval))
+  (try
+    (->> code
+         clojure.edn/read-string
+         first
+         symbol
+         resolve
+         meta
+         :remote-eval)
+    (catch Exception e
+      nil)))
 
 (def ^:private whitelisted-ops
   #{"close" "interrupt"})
