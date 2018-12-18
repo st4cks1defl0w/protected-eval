@@ -22,6 +22,7 @@ Simply use `defnremote` instead of `defn` if you wish to expose your function to
 ```
 
 ### installation
+[![Clojars Project](https://img.shields.io/clojars/v/protected-eval.svg)](https://clojars.org/protected-eval)
 1. Add this to your project.clj
 
     ```clojure
