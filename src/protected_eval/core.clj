@@ -13,13 +13,16 @@
   `(defn ~(vary-meta fn-name assoc :remote-eval true) ~@fn-rest))
 
 (defn- defnremote? [code]
-  (->> code
-       clojure.edn/read-string
-       first
-       symbol
-       resolve
-       meta
-       :remote-eval))
+  (try
+    (->> code
+         clojure.edn/read-string
+         first
+         symbol
+         resolve
+         meta
+         :remote-eval)
+    (catch Exception e
+      nil)))
 
 (def ^:private whitelisted-ops
   #{"close" "interrupt"})
