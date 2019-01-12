@@ -1,4 +1,4 @@
-(defproject protected-eval "0.1.7"
+(defproject protected-eval "0.1.8"
   :description "Application REPL Interface -
                 select functions evaluable with nREPL,
                 hide everything else."

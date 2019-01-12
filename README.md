@@ -26,7 +26,7 @@ Simply use `defnremote` instead of `defn` if you wish to expose your function to
 1. Add this to your project.clj
 
     ```clojure
-    [protected-eval "0.1.2"]
+    [protected-eval "0.1.8"]
     ```
 2. [Default nREPL] Add this to your project.clj
     ```clojure
